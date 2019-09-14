@@ -62,9 +62,7 @@ struct cs1550_directory_entry
 	//This is some space to get this to be exactly the size of the disk block.
 	//Don't use it for anything.  
 	char padding[BLOCK_SIZE - MAX_FILES_IN_DIR * sizeof(struct cs1550_file_directory) - sizeof(int)];
-} ;
-
-typedef struct cs1550_root_directory cs1550_root_directory;
+} ; typedef struct cs1550_directory_entry cs1550_directory_entry;
 
 #define MAX_DIRS_IN_ROOT (BLOCK_SIZE - sizeof(int)) / ((MAX_FILENAME + 1) + sizeof(long))
 
@@ -81,10 +79,7 @@ struct cs1550_root_directory
 	//This is some space to get this to be exactly the size of the disk block.
 	//Don't use it for anything.  
 	char padding[BLOCK_SIZE - MAX_DIRS_IN_ROOT * sizeof(struct cs1550_directory) - sizeof(int)];
-} ;
-
-
-typedef struct cs1550_directory_entry cs1550_directory_entry;
+} ; typedef struct cs1550_root_directory cs1550_root_directory;
 
 //How much data can one block hold?
 #define	MAX_DATA_IN_BLOCK (BLOCK_SIZE - sizeof(long))
@@ -100,17 +95,13 @@ struct cs1550_disk_block
 	//And all the rest of the space in the block can be used for actual data
 	//storage.
 	char data[MAX_DATA_IN_BLOCK];
-};
-
-typedef struct cs1550_disk_block cs1550_disk_block;
+}; typedef struct cs1550_disk_block cs1550_disk_block;
 
 #define MAX_FAT_ENTRIES (BLOCK_SIZE/sizeof(short))              // Define maximum number of entries in our FAT table
 
 struct cs1550_file_alloc_table_block {                          // Define FAT block as a struct
     short table[MAX_FAT_ENTRIES];
-};
-
-typedef struct cs1550_file_alloc_table_block cs1550_fat_block;
+}; typedef struct cs1550_file_alloc_table_block cs1550_fat_block;
 
 
 // Loads root into a struct
